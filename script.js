@@ -36,10 +36,23 @@ function showPosition(position) {
   coords = position.coords;
 }
 
+let compassAngle = -1;
+window.addEventListener('deviceorientation', function(event) {
+  const alpha = event.alpha;
+  if (alpha === null) {
+    console.log('Device orientation not supported.');
+  } else {
+    compassAngle = (360 - alpha) % 360;
+    console.log('Compass angle: ' + compassAngle);
+  }
+});
+
 setInterval(() => {
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
   const dataUrl = canvas.toDataURL('image/png');
   img.setAttribute('src', dataUrl);
 
-  document.getElementById('description').innerHTML = `${new Date().toLocaleString()}　Location: ${Math.round(coords.latitude * 100000) / 100000},${Math.round(coords.longitude * 100000) / 100000}`
+  document.getElementById('description').innerHTML = `${new Date().toLocaleString()}<br>`
+    + `Location: ${Math.round(coords.latitude * 10000000) / 10000000},${Math.round(coords.longitude * 10000000) / 10000000}`
+    + `　Orientation: ${compassAngle < 0 ? 'Not available' : compassAngle}`
 }, 1000);
