@@ -4,7 +4,7 @@ video.setAttribute('muted', '');
 video.setAttribute('playsinline', '');
 
 navigator.mediaDevices.getUserMedia({ video: {
-  facingMode: 'environment'
+  facingMode: { ideal: 'environment' }
 }, audio: false })
   .then(stream => {
     if ('srcObject' in video) {
