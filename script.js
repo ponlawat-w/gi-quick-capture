@@ -36,20 +36,6 @@ function showPosition(position) {
   coords = position.coords;
 }
 
-let compassAngle = -1;
-if (window.DeviceOrientationEvent) {
-  window.addEventListener('deviceorientation', function(event) {
-    var compassdir;
-
-    if(event.webkitCompassHeading) {
-      compassdir = event.webkitCompassHeading;  
-    }
-    else {
-      compassdir = event.alpha;
-    }
-  });
-}
-
 setInterval(() => {
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
   const dataUrl = canvas.toDataURL('image/png');
@@ -57,5 +43,4 @@ setInterval(() => {
 
   document.getElementById('description').innerHTML = `${new Date().toLocaleString()}<br>`
     + `Location: ${Math.round(coords.latitude * 10000000) / 10000000},${Math.round(coords.longitude * 10000000) / 10000000}`
-    + `　Orientation: ${compassAngle < 0 ? 'Not available' : compassAngle}`
 }, 1000);
