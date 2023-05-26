@@ -1,8 +1,12 @@
+const video = document.getElementById('video');
+video.setAttribute('autoplay', '');
+video.setAttribute('muted', '');
+video.setAttribute('playsinline', '');
+
 navigator.mediaDevices.getUserMedia({ video: true })
   .then(function (stream) {
-    const video = document.getElementById('video');
     video.srcObject = stream;
-    video.onloadedmetadata = function (e) {
+    video.onloadedmetadata = function () {
       video.play();
     };
   })
