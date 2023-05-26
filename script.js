@@ -3,7 +3,7 @@ video.setAttribute('autoplay', '');
 video.setAttribute('muted', '');
 video.setAttribute('playsinline', '');
 
-navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+navigator.mediaDevices.getUserMedia({ video: true, audio: false, facingMode: 'environment' })
   .then(stream => {
     if ('srcObject' in video) {
       video.srcObject = stream;
