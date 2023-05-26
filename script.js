@@ -37,15 +37,18 @@ function showPosition(position) {
 }
 
 let compassAngle = -1;
-window.addEventListener('deviceorientation', function(event) {
-  const alpha = event.alpha;
-  if (alpha === null) {
-    console.log('Device orientation not supported.');
-  } else {
-    compassAngle = (360 - alpha) % 360;
-    console.log('Compass angle: ' + compassAngle);
-  }
-});
+if (window.DeviceOrientationEvent) {
+  window.addEventListener('deviceorientation', function(event) {
+    var compassdir;
+
+    if(event.webkitCompassHeading) {
+      compassdir = event.webkitCompassHeading;  
+    }
+    else {
+      compassdir = event.alpha;
+    }
+  });
+}
 
 setInterval(() => {
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
