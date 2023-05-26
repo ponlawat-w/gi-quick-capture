@@ -3,15 +3,16 @@ video.setAttribute('autoplay', '');
 video.setAttribute('muted', '');
 video.setAttribute('playsinline', '');
 
-navigator.mediaDevices.getUserMedia({ video: true })
-  .then(function (stream) {
-    video.srcObject = stream;
-    video.onloadedmetadata = function () {
-      video.play();
-    };
-  })
-  .catch(function (err) {
-    alert('Error occurred: ' + err.name);
+navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+  .then(stream => {
+    if ('srcObject' in video) {
+      video.srcObject = stream;
+    } else {
+      video.src = window.URL.createObjectURL(stream);
+    }
+    video.play();
+  }).catch(err => {
+    console.error(`Not available!!!!`, err);
   });
 
 if (navigator.geolocation) {
